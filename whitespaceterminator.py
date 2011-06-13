@@ -10,12 +10,6 @@ Strip trailing whitespace before saving.
 from gi.repository import GObject, Gedit
 
 
-EOLS = {
-    Gedit.DocumentNewlineType.CR: "\r",
-    Gedit.DocumentNewlineType.LF: "\n",
-    Gedit.DocumentNewlineType.CR_LF: "\r\n"}
-
-
 class WhiteSpaceTerminator(GObject.Object, Gedit.WindowActivatable):
     """Strip trailing whitespace before saving."""
     window = GObject.property(type=Gedit.Window)
@@ -28,6 +22,10 @@ class WhiteSpaceTerminator(GObject.Object, Gedit.WindowActivatable):
     
     def on_document_save(self, document, location, encoding, compression,
                          flags, data=None):
-        eol = EOLS[document.props.newline_type]
-        document.props.text = eol.join(
-            line.rstrip() for line in document.props.text.rstrip().split(eol))
+        for i, text in enumerate(document.props.text.rstrip().split("\n")):
+            strip_stop = document.get_iter_at_line(i)
+            strip_stop.forward_to_line_end()
+            strip_start = strip_stop.copy()
+            strip_start.backward_chars(len(text) - len(text.rstrip()))
+            document.delete(strip_start, strip_stop)
+        document.delete(strip_start, document.get_end_iter())
