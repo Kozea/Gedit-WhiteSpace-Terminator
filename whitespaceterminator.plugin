@@ -2,7 +2,7 @@
 Loader=python
 Module=whitespaceterminator
 IAge=3
-Name=Save without trailing space
+Name=White Space Terminator
 Description=Strip trailing whitespace before saving
 Authors=Guillaume Ayoub <guillaume.ayoub@kozea.fr>
 Copyright=Copyright © Kozea
