@@ -1,3 +1,4 @@
+# coding: utf8
 # Copyright © 2011 Kozea
 # Licensed under a 3-clause BSD license.
 
@@ -10,9 +11,9 @@ from gi.repository import GObject, Gedit
 
 
 EOLS = {
-    Gedit.DocumentNewlineType.CR, "\r",
-    Gedit.DocumentNewlineType.LF, "\n",
-    Gedit.DocumentNewlineType.CR_LF, "\r\n"}
+    Gedit.DocumentNewlineType.CR: "\r",
+    Gedit.DocumentNewlineType.LF: "\n",
+    Gedit.DocumentNewlineType.CR_LF: "\r\n"}
 
 
 class WhiteSpaceTerminator(GObject.Object, Gedit.WindowActivatable):
