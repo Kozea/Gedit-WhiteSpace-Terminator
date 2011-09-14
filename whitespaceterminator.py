@@ -13,15 +13,19 @@ from gi.repository import GObject, Gedit
 class WhiteSpaceTerminator(GObject.Object, Gedit.WindowActivatable):
     """Strip trailing whitespace before saving."""
     window = GObject.property(type=Gedit.Window)
-    
+
     def do_activate(self):
-        self.window.connect("tab-added", self.on_tab_added)
+        self.handlers = []
+        handler = self.window.connect("tab-added", self.on_tab_added)
+        self.handlers.append((self.window, handler))
         for document in self.window.get_documents():
             document.connect("save", self.on_document_save)
+            self.handlers.append((document, handler))
 
     def on_tab_added(self, window, tab, data=None):
-        tab.get_document().connect("save", self.on_document_save)
-    
+        handler = tab.get_document().connect("save", self.on_document_save)
+        self.handlers.append((tab, handler))
+
     def on_document_save(self, document, location, encoding, compression,
                          flags, data=None):
         for i, text in enumerate(document.props.text.rstrip().split("\n")):
@@ -31,3 +35,7 @@ class WhiteSpaceTerminator(GObject.Object, Gedit.WindowActivatable):
             strip_start.backward_chars(len(text) - len(text.rstrip()))
             document.delete(strip_start, strip_stop)
         document.delete(strip_start, document.get_end_iter())
+
+    def do_deactivate(self):
+        for obj, handler in self.handlers:
+            obj.disconnect(handler)
