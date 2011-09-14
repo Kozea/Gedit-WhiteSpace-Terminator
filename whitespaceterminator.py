@@ -16,6 +16,8 @@ class WhiteSpaceTerminator(GObject.Object, Gedit.WindowActivatable):
     
     def do_activate(self):
         self.window.connect("tab-added", self.on_tab_added)
+        for document in self.window.get_documents():
+            document.connect("save", self.on_document_save)
 
     def on_tab_added(self, window, tab, data=None):
         tab.get_document().connect("save", self.on_document_save)
