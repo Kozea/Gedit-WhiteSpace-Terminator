@@ -28,7 +28,7 @@ class WhiteSpaceTerminator(GObject.Object, Gedit.WindowActivatable):
 
     def on_document_save(self, document, location, encoding, compression,
                          flags, data=None):
-        for i, text in enumerate(document.props.text.rstrip().split("\n")):
+        for i, text in enumerate(document.props.text.rstrip().splitlines()):
             strip_stop = document.get_iter_at_line(i)
             strip_stop.forward_to_line_end()
             strip_start = strip_stop.copy()
