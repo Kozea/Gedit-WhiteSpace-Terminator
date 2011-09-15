@@ -6,5 +6,5 @@ Name=White Space Terminator
 Description=Strip trailing whitespace before saving
 Authors=Guillaume Ayoub <guillaume.ayoub@kozea.fr>
 Copyright=Copyright © Kozea
-Version=3.0.0
-Website=
+Version=0.2
+Website=https://github.com/Kozea/Gedit-WhiteSpace-Terminator
