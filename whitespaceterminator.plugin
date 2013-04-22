@@ -1,10 +1,10 @@
 [Plugin]
-Loader=python
+Loader=python3
 Module=whitespaceterminator
 IAge=3
 Name=White Space Terminator
 Description=Strip trailing whitespace before saving
 Authors=Guillaume Ayoub <guillaume.ayoub@kozea.fr>
 Copyright=Copyright © Kozea
-Version=0.2
+Version=0.3
 Website=https://github.com/Kozea/Gedit-WhiteSpace-Terminator

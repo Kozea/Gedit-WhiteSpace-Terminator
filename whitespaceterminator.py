@@ -1,5 +1,5 @@
 # coding: utf8
-# Copyright © 2011 Kozea
+# Copyright © 2011-2013 Kozea
 # Licensed under a 3-clause BSD license.
 
 """
